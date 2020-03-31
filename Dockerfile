@@ -1,4 +1,5 @@
 FROM python:3.8
+LABEL maintainer="dev.scholz@mailbox.org"
 
 WORKDIR /src
 
@@ -11,6 +12,10 @@ RUN mkdir evaluation_projects
 WORKDIR linespots-lib
 RUN git checkout sims/paper
 RUN pipenv install --dev --deploy --ignore-pipfile
-RUN pipenv run python linespots/utils/json_builder.py
 
-CMD ["pipenv", "run", "python", "full_evaluation.py", "-p", "2"]
+ADD run.sh /
+RUN chmod +x /run.sh
+
+ENTRYPOINT ["/run.sh"]
+
+CMD ["2"]
