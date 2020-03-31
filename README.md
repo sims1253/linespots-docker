@@ -5,16 +5,14 @@ When running the image, you can specify the number of processes to use in parall
 More processes will make it faster but also take up more memory.
 Memory needed per process is probably between 8-16GB
 
-
 Build with: `docker build -t <name:tag> .`
     eg: `docker build -t m0hawk/linespots-reproduction:test .`
 
-Run with: `docker run <name:tag> <process count>`
-    eg: `docker run m0hawk/linespots-reproduction:test 4`
+Run with: `docker run --volume --<host directory>:/src/host <name:tag> <process count>`
+    eg: `docker run --volume --~/Documents/Linespots:/src/host m0hawk/linespots-reproduction:test 4`
+    The resulting .csv file will be saved to `<host directory>`.
+    You can use the `-d` flag to run the container in daemon mode. This frees up the terminal.
 
 Get container id: `docker ps`
-
-Copy Results with: `docker cp <container id>:/src/evaluation_projects/full_evaluation.csv <host path>`
-    eg: `docker cp 5f87b6ea7b4c:/src/evaluation_projects/full_evaluation.csv ~/Downloads`
 
 Open Bash in Running Container: `docker exec -it <container id> bash`
