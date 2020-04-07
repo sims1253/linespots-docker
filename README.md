@@ -13,7 +13,11 @@ Run with: `docker run --volume <host directory>:/src/host <name:tag> <process co
     The resulting .csv file will be saved to `<host directory>`.
     You can use the `-d` flag to run the container in daemon mode. This frees up the terminal.
 
-Get container id: `docker ps`
+It is possible to somewhat pause the progress and resume later:
+    - Use `docker commit <containerID> <name:tag>` to create a new image. It will have all the downloaded projects and the intermediate result csvs.
+    - Use the same run command but with the new `<name:tag>` combo to resume. The code will skip the projects that already have a result csv and merge the existing ones into the final result if it finishes.
+
+Get container ids: `docker ps`
 Get container images: `docker images`
 To delete a single image: `docker rmi <imageID>`
 Open Bash in Running Container: `docker exec -it <container id> bash`
